@@ -1,24 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import { useTranslation } from 'react-i18next';
+import React, { Suspense } from 'react';
 
-function App() {
+
+function Foo() {
+  const { t, i18n } = useTranslation(['global']);
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          { t('message') }
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>
+        { t('language') } : { i18n.language }
+          </p>
+          <button onClick={ () => i18n.changeLanguage("es") }>ES</button>
+          <button onClick={ () => i18n.changeLanguage("en") }>EN</button>
       </header>
     </div>
+  );
+}
+
+function App() {
+
+  return (
+      <Suspense fallback="cargando...">
+        <Foo />
+    </Suspense>
   );
 }
 
